@@ -16,11 +16,25 @@ window.onload = (event) => {
 
 const getNotes = (userId) => {
   const notesRef = firebase.database().ref(`users/${userId}`);
-  notesRef.on('value', (snapshot) => {
-    const data = snapshot.val();
-    renderDataAsHtml(data);
+  notesRef.orderByChild('title').on('value', (snapshot) => {
+    //const data = snapshot.val();
+    //renderDataAsHtml(data);
+    //console.log(snapshot);
+    writeDataAsHtml(snapshot);
   });
 };
+
+const writeDataAsHtml = (data) => {
+    let cards = ``
+    data.forEach((child) => {
+        const noteKey = child.key;
+        const noteData = child.val();
+        console.log(noteData);
+        cards += createCard(noteData, noteKey);
+
+    });
+    document.querySelector('#app').innerHTML = cards;
+}
 
 const renderDataAsHtml = (data) => {
   let cards = ``
@@ -94,6 +108,6 @@ const saveEditedNote = () => {
         title: noteTitle,
         text: noteText
     }
-    firebase.databse().ref(`users/${googleUserId}/${noteId}`).update(noteEdits);
+    firebase.database().ref(`users/${googleUserId}/${noteId}`).update(noteEdits);
     closeEditModal();
 }
