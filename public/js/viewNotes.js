@@ -1,4 +1,5 @@
 let googleUserId = "";
+let nId = "";
 
 window.onload = (event) => {
   // Use this to retain user state between html pages.
@@ -75,7 +76,21 @@ const createCard = (note, noteId) => {
 
 const deleteNote = (noteId) => {
     console.log("delete pressed")
+    const deleteCheckModal = document.querySelector('#deleteCheckModal');
+    const notesRef = firebase.database().ref(`users/${googleUserId}`);
+    nId = noteId;
+    deleteCheckModal.classList.toggle('is-active');
+}
+
+const deleteCard = (noteId) => {
+    console.log("in deletenode" + noteId);
     firebase.database().ref(`users/${googleUserId}/${noteId}`).remove();
+    deleteCheckModal.classList.toggle('is-active');
+}
+
+const cancelDelete = () => {
+    const deleteCheckModal = document.querySelector('#deleteCheckModal');
+    deleteCheckModal.classList.toggle('is-active');
 }
 
 const editNote = (noteId) => {

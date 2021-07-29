@@ -53,6 +53,23 @@
                 </footer>
             </div>
         </div>
+         <div id="deleteCheckModal" class="modal">
+            <div class="modal-background"></div>
+            <div class="modal-card">
+                <section class="modal-card-body">
+                    Are you sure you want to delete this note?
+                    <input id="editNoteId" type="hidden">
+                </section>
+                <footer class="modal-card-foot">
+                    <button class="button is-success" id = "confirmDelete" onClick="deleteCard(nId)">
+                        Yes
+                    </button>
+                    <button class="button" onclick="cancelDelete()">
+                        Cancel
+                    </button> 
+                </footer>
+            </div>
+        </div>
       </div>
     </div>
     <footer class="footer">
